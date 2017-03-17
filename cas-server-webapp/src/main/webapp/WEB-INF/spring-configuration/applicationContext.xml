@@ -41,6 +41,41 @@
     -->
     <aop:aspectj-autoproxy/>
 
+    <bean id="facebook1" class="org.pac4j.oauth.client.FacebookClient">
+        <property name="key" value="fbkey"/>
+        <property name="secret" value="fbsecret"/>
+        <property name="scope"
+                  value="email,user_likes,user_about_me,user_birthday,user_education_history,user_hometown"/>
+        <property name="fields"
+                  value="id,name,first_name,middle_name,last_name,gender,locale,languages,link,username,third_party_id,timezone,updated_time"/>
+    </bean>
+
+    <bean id="twitter1" class="org.pac4j.oauth.client.TwitterClient">
+        <property name="key" value="twkey"/>
+        <property name="secret" value="twsecret"/>
+    </bean>
+
+    <bean id="caswrapper1" class="org.pac4j.oauth.client.CasOAuthWrapperClient">
+        <property name="key" value="this_is_the_key"/>
+        <property name="secret" value="this_is_the_secret"/>
+        <property name="casOAuthUrl" value="http://mycasserver2/oauth2.0"/>
+    </bean>
+
+    <bean id="cas1" class="org.pac4j.cas.client.CasClient">
+        <property name="casLoginUrl" value="http://mycasserver2/login"/>
+    </bean>
+
+    <bean id="clients" class="org.pac4j.core.client.Clients">
+        <property name="callbackUrl" value="http://localhost:8080/cas/login" />
+        <property name="clients">
+            <list>
+                <ref bean="facebook1" />
+                <ref bean="twitter1" />
+                <ref bean="caswrapper1" />
+                <ref bean="cas1" />
+            </list>
+        </property>
+    </bean>
     <!-- 
         Message source for this context, loaded from localized "messages_xx" files.]
         
